@@ -10,9 +10,10 @@ Bootstrapping Docker + Node: need to add `package.json`, `index.js` entrypoints
 3. Update Dockerfile to use project files
    * `npm init`
    * add `start` block to `package.json`
-   * `touch index.js` or `npx create-react-app`, etc.
+   * `touch index.js`
 
 4. Ensure Dockerfile runs app: `CMD ["npm", "start"]` and rebuild
    (`docker-compose build`)
 
-5. Profit?
+5. For `npx create-react-app app`, will have to remove bootstrapped `/app`
+   directory. `git checkout` to replace `Dockerfile`, etc.
