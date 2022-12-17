@@ -4,7 +4,7 @@ permissions:
   contents: write
 on:
   push:
-    branches: [ topic/actions-init ]
+    branches: [ topic/actions-init, topic/gh-pages-deploy ]
 jobs:
   container-npm-run-build:
     runs-on: ubuntu-latest
