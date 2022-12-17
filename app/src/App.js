@@ -9,6 +9,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <p>ENV_SECRET: {process.env.REACT_APP_ENV_SECRET}</p>
         <a
           className="App-link"
           href="https://reactjs.org"
