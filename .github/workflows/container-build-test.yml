@@ -1,0 +1,23 @@
+name: container-build-test
+run-name: Build in Container, Run Test
+on:
+  push:
+    branches: [ topic/actions-init ]
+jobs:
+  container-npm-run-build:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18.12.1
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies and build
+        working-directory: ./app
+        run: |
+          npm ci
+          npm run build
+
+      - name: Run Test (nowatch)
+        working-directory: ./app
+        run: npm run test:nowatch
