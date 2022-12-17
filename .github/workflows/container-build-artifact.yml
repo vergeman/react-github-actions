@@ -1,0 +1,47 @@
+name: container-build-artifact
+run-name: Build in Container, Upload Artifacts
+on:
+  push:
+    branches: [ topic/actions-init ]
+jobs:
+  container-npm-run-build:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18.12.1
+      # volumes:
+      #   -  ${{ github.workspace }}/app:/app
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Check for dockerenv file
+        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
+
+      - name: Output dir
+        run: ls -rtaflg
+      - name: Output app
+        run: ls -rtaflg app
+      - name: Output dir
+        run: pwd
+      - name: Output root on container?
+        run: ls -rtaflg /
+
+      - name: cd
+        working-directory: ./app
+        run: ls -rtaflg
+
+      - name: Install dependencies an build
+        working-directory: ./app
+        run: |
+          npm ci
+          npm run build
+
+      - name: list build contents
+        run: ls -rtaflg ./app/build
+
+      - name: upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: app/build/
+          retention-days: 7
