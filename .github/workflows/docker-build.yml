@@ -1,0 +1,12 @@
+name: docker-build
+run-name: Building react-github-actions container
+on:
+  push:
+    branches: [ topic/actions-init ]
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: docker-compose build
